@@ -18,6 +18,10 @@
     <form action="">
       <input id="m" autocomplete="off" /><button>Send</button>
     </form>
+    <button id="newSession">Create new session</button>
+    <form id="js" action="">
+      <input id="j" autocomplete="off" /><button>join session</button>
+    </form>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
     <script>
@@ -34,10 +38,30 @@
           }
         });
         console.log(userId)
-        socket.emit('createSession', {
+
+        $('#newSession').click(function( event ) {
+          event.preventDefault();
+          socket.emit('createSession', {
           controlLock: false,
           videoId: 1,
         });
+        console.log("session created");
+        
+
+        });
+
+        $('form').submit(function(e){
+          e.preventDefault(); // prevents page reloading
+          console.log("here");
+          socket.emit('joinSession', $('#j').val(), function(data) {
+
+	          
+            console.log("session joined");
+          });
+        }
+	            
+        
+        
 
         $('form').submit(function(e){
           e.preventDefault(); // prevents page reloading
