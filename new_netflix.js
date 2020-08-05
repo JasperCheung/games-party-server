@@ -369,6 +369,7 @@ io.on('connection', function(socket) {
     }
 
     var sessionId = makeId();
+    console.log("Session Created: " , sessionId);
     while (sessions.hasOwnProperty(sessionId)) {
       sessionId = makeId();
     }
